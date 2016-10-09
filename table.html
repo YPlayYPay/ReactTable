@@ -74,7 +74,7 @@
         }
     }
 
-    class List extends React.Component {
+    class Row extends React.Component {
         render() {
             return (
                     <div className="wrap-style">
@@ -84,6 +84,23 @@
                         <div className="item">
                             {this.props.num}
                         </div>
+                    </div>
+            )
+        }
+    }
+
+    class List extends React.Component {
+        render() {
+           let RowNodes=this.props.data.map(function (row) {
+                return(
+                        <Row key={row.id} trial={row.trial} num={row.num}>
+
+                        </Row>
+                )
+            });
+            return (
+                    <div className="wrap-style">
+                        {RowNodes}
                     </div>
             )
         }
@@ -101,10 +118,10 @@
         }
     }
 
-    const data= {
-            trial:'武汉大学kkkkkkkkk',
-            num:20
-        }
+    const data= [
+            {trial:'武汉大学kkkkkkkkk', num:20},
+            {trial:'武汉大学kkkkkkkkk', num:20},
+            {trial:'武汉大学kkkkkkkkk', num:20}];
 
 
     class ReactTable extends React.Component {
@@ -115,10 +132,11 @@
             }
         }
         render() {
+
             return (
                     <div>
                         <Title />
-                        <List trial={this.props.data.trial} num={this.props.data.num}/>
+                        <List />
                         <MoreList />
                     </div>
             )
