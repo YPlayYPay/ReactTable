@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>React! React! React!</title>
+    <script src="http://static.runoob.com/assets/react/react-0.14.7/build/react.min.js"></script>
+
+    <script src="http://static.runoob.com/assets/react/browser.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+
+    <style>
+        body {
+            padding: 50px;
+            background-color: #66ccff;
+            font-family: sans-serif;
+            color: #A9A9A9;
+        }
+
+        .wrap-style {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            justify-content: flex-start;
+            margin-bottom: 2px;
+        }
+
+        .item {
+            height: 10%;
+            background-color: #ffffff;
+            width: 50%;
+            line-height: 50px;
+            text-align: center;
+        }
+
+        #example {
+            width: 500px;
+            height: 550px;
+            background-color: #EDEEEF;
+            padding: 5px;
+        }
+
+        .more {
+            height: 10%;
+            width: 100%;
+            text-align: center;
+            line-height: 50px;
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="example">
+
+</div>
+
+<script type="text/babel">
+    var destination = document.querySelector("#example");
+
+    class Title extends React.Component {
+        render() {
+            return (
+                    <div className="wrap-style">
+                        <div className="item">
+                            名称
+                        </div>
+                        <div className="item">
+                            场次
+                        </div>
+                    </div>
+            )
+        }
+    }
+
+    class List extends React.Component {
+        render() {
+            return (
+                    <div className="wrap-style">
+                        <div className="item">
+                            武汉大学xxxxx研究课题
+                        </div>
+                        <div className="item">
+                            20
+                        </div>
+                    </div>
+            )
+        }
+    }
+
+    class MoreList extends React.Component {
+        render() {
+            return (
+                    <div className="wrap-style">
+                        <div className="more">
+                            更多
+                        </div>
+                    </div>
+            )
+        }
+    }
+
+    const data=[
+        {
+            trial:'武汉大学kkkkkkkkk'
+        }
+    ];
+
+
+
+    class ReactTable extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                trial:[]
+            }
+        }
+        componentWillMount(){
+            for(let i=0;i<data.length;i++)
+            {
+                console.log(data[i].trial)
+            }
+        }
+        render() {
+            return (
+                    <div>
+                        <Title />
+                        <List />
+                        <MoreList />
+                    </div>
+            )
+        }
+    }
+
+    React.render(
+            <ReactTable />,
+            destination
+    );
+</script>
+</body>
+
+</html>
