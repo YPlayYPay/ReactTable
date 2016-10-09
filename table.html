@@ -79,10 +79,10 @@
             return (
                     <div className="wrap-style">
                         <div className="item">
-                            武汉大学xxxxx研究课题
+                            {this.props.trial}
                         </div>
                         <div className="item">
-                            20
+                            {this.props.num}
                         </div>
                     </div>
             )
@@ -101,32 +101,24 @@
         }
     }
 
-    const data=[
-        {
-            trial:'武汉大学kkkkkkkkk'
+    const data= {
+            trial:'武汉大学kkkkkkkkk',
+            num:20
         }
-    ];
-
 
 
     class ReactTable extends React.Component {
-        constructor(props) {
-            super(props);
+        constructor() {
+            super();
             this.state = {
                 trial:[]
-            }
-        }
-        componentWillMount(){
-            for(let i=0;i<data.length;i++)
-            {
-                console.log(data[i].trial)
             }
         }
         render() {
             return (
                     <div>
                         <Title />
-                        <List />
+                        <List trial={this.props.data.trial} num={this.props.data.num}/>
                         <MoreList />
                     </div>
             )
@@ -134,7 +126,7 @@
     }
 
     React.render(
-            <ReactTable />,
+            <ReactTable data={data}/>,
             destination
     );
 </script>
