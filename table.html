@@ -67,7 +67,7 @@
         {trial: '武汉大学kkkkkkkkk', num: 20},
         {trial: '武汉大学kkkkkkkkk', num: 20},
         {trial: '武汉大学kkkkkkkkk', num: 20},
-        {trial: '武汉大学kkkkkkkkk', num: 20}
+        {trial: '武汉大学kkkkkkkkk', num: 20},
     ];
 
     const column=[
@@ -122,19 +122,17 @@
     }
 
     class MoreList extends React.Component {
+
         render() {
             return (
                     <div className="wrap-style">
-                        <div className="more">
+                        <div className="more" onClick={this.props.onClick}>
                             更多
                         </div>
                     </div>
             )
         }
     }
-
-
-
 
     class ReactTable extends React.Component {
         constructor() {
@@ -143,13 +141,16 @@
                 trial: []
             }
         }
+        handleClick(){
+           this.setState({trial:data})
+        }
 
         render() {
             return (
                     <div>
                         <Title col1={column[0].col1} col2={column[0].col2}/>
                         <List data={data}/>
-                        <MoreList />
+                        <MoreList onClick={this.handleClick.bind(this)}/>
                     </div>
             )
         }
