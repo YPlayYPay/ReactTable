@@ -33,6 +33,12 @@
             line-height: 50px;
             text-align: center;
         }
+        .item:hover{
+            background-color: #66ccff;
+            transition: .3s;
+            color: white;
+            cursor: pointer;
+        }
 
         #example {
             width: 500px;
@@ -47,7 +53,15 @@
             text-align: center;
             line-height: 50px;
             background-color: #ffffff;
+            border-radius: 6px;
         }
+        .more:hover{
+            background-color: #66ccff;
+            transition: .3s;
+            color: white;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 
@@ -60,7 +74,7 @@
 <script type="text/babel">
     var destination = document.querySelector("#example");
 
-    const data = [
+    let data = [
         {trial: '武汉大学kkkkkkkkk', num: 20},
         {trial: '武汉大学kkkkkkkkk', num: 20},
         {trial: '武汉大学kkkkkkkkk', num: 20},
@@ -70,7 +84,7 @@
         {trial: '武汉大学kkkkkkkkk', num: 20},
     ];
 
-    const column=[
+    let column=[
         {col1:'名称',col2:'场次'}
     ];
 
@@ -138,26 +152,27 @@
         constructor() {
             super();
             this.state = {
-                trial: []
+                trial: data
             }
         }
-        handleClick(){
-           this.setState({trial:data})
-        }
+
+        handleClick(e){
+            this.setState({trial:data});
+        };
 
         render() {
             return (
                     <div>
-                        <Title col1={column[0].col1} col2={column[0].col2}/>
-                        <List data={data}/>
-                        <MoreList onClick={this.handleClick.bind(this)}/>
+                        <Title col1={this.props.col1} col2={this.props.col2}/>
+                        <List data={this.props.data}/>
+                        <MoreList onClick={this.handleClick.bind(this)} />
                     </div>
             )
         }
     }
 
     React.render(
-            <ReactTable />,
+            <ReactTable data={data} col1={column[0].col1} col2={column[0].col2}/>,
             destination
     );
 </script>
