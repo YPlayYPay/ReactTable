@@ -6,7 +6,6 @@
     <script src="http://static.runoob.com/assets/react/react-0.14.7/build/react.min.js"></script>
 
     <script src="http://static.runoob.com/assets/react/browser.min.js"></script>
-    <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 
 
     <style>
@@ -16,36 +15,45 @@
             font-family: sans-serif;
             color: #A9A9A9;
         }
-
         .wrap-style {
             display: flex;
             width: 100%;
             height: 100%;
             justify-content: flex-start;
             margin-bottom: 2px;
+            flex-wrap: wrap;
         }
-
         .item {
-            height: 10%;
+            height: 50px;
             background-color: #ffffff;
             width: 50%;
             line-height: 50px;
             text-align: center;
         }
-
+        .item:hover {
+            background-color: #66ccff;
+            transition: .3s;
+            color: white;
+            cursor: pointer;
+        }
         #example {
-            width: 500px;
-            height: 550px;
+            width: 100%;
             background-color: #EDEEEF;
             padding: 5px;
         }
-
         .more {
-            height: 10%;
+            height: 50px;
             width: 100%;
             text-align: center;
             line-height: 50px;
             background-color: #ffffff;
+            border-radius: 6px;
+        }
+        .more:hover {
+            background-color: #66ccff;
+            transition: .3s;
+            color: white;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -57,17 +65,45 @@
 </div>
 
 <script type="text/babel">
-    var destination = document.querySelector("#example");
+    let destination = document.querySelector("#example");
 
+
+    let data = [
+        {n1: '武汉大学', n2: 20},
+        {n1: '武汉大学', n2: 20}
+    ];
+    for(var o in data[0]){
+      var length=o.length;
+    }
+
+    let columns = [
+        {col1: '名称', col2: '场次'}
+    ];
     class Title extends React.Component {
         render() {
+           let ColumnNodes =this.props.columns.map(function (col) {
+               return(
+                       <Col col1={col.col1} col2={col.col2}>
+                       </Col>
+               )
+           });
+            return (
+                    <div className="wrap-style">
+                        {ColumnNodes}
+                    </div>
+            )
+        }
+    }
+
+    class Col extends React.Component{
+        render(){
             return (
                     <div className="wrap-style">
                         <div className="item">
-                            名称
+                            {this.props.col1}
                         </div>
                         <div className="item">
-                            场次
+                            {this.props.col2}
                         </div>
                     </div>
             )
@@ -79,10 +115,10 @@
             return (
                     <div className="wrap-style">
                         <div className="item">
-                            {this.props.trial}
+                            {this.props.n1}
                         </div>
                         <div className="item">
-                            {this.props.num}
+                            {this.props.n2}
                         </div>
                     </div>
             )
@@ -91,10 +127,9 @@
 
     class List extends React.Component {
         render() {
-           let RowNodes=this.props.data.map(function (row) {
-                return(
-                        <Row key={row.id} trial={row.trial} num={row.num}>
-
+            let RowNodes = this.props.data.map(function (row) {
+                return (
+                        <Row n1={row.n1} n2={row.n2}>
                         </Row>
                 )
             });
@@ -110,41 +145,43 @@
         render() {
             return (
                     <div className="wrap-style">
-                        <div className="more">
-                            更多
+                        <div className="more" onClick={this.props.onClick}>
+                            刷新
                         </div>
                     </div>
             )
         }
     }
 
-    const data= [
-            {trial:'武汉大学kkkkkkkkk', num:20},
-            {trial:'武汉大学kkkkkkkkk', num:20},
-            {trial:'武汉大学kkkkkkkkk', num:20}];
-
-
     class ReactTable extends React.Component {
-        constructor() {
-            super();
+        constructor(props) {
+            super(props);
             this.state = {
-                trial:[]
+                n1: props.data
             }
         }
-        render() {
 
+        handleClick() {
+            this.state.n1.push({n1: '武汉大学', n2: 30});
+            this.setState({
+                n1: this.state.n1,
+            });
+        };
+
+        render() {
+            console.log(this.props.data);
             return (
                     <div>
-                        <Title />
-                        <List />
-                        <MoreList />
+                        <Title columns={this.props.columns}/>
+                        <List data={this.state.n1}/>
+                        <MoreList onClick={this.handleClick.bind(this)}/>
                     </div>
             )
         }
     }
 
     React.render(
-            <ReactTable data={data}/>,
+            <ReactTable data={data} columns={columns}/>,
             destination
     );
 </script>
