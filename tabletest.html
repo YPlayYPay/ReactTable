@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>React! React! React!</title>
+    <script src="http://static.runoob.com/assets/react/react-0.14.7/build/react.min.js"></script>
+
+    <script src="http://static.runoob.com/assets/react/browser.min.js"></script>
+
+
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+<div id="example">
+
+</div>
+
+<script type="text/babel">
+    var App = React.createClass({
+        getInitialState: function () {
+            return {
+                data: [
+                    {
+                        num: '2015011',
+                        name: 'Jacky',
+                        age: 21
+                    },
+                    {
+                        num: '2015012',
+                        name: 'Mary',
+                        age: 20
+                    }
+                ]
+            }
+        },
+        handleClick: function () {
+            this.setState({
+                data: [
+                    {
+                        num: '2015013',
+                        name: 'Helen',
+                        age: 20
+                    },
+                    {
+                        num: '2015014',
+                        name: 'Jay',
+                        age: 21
+                    }
+                ]
+            });
+        },
+        render: function () {
+            return (
+                    <div>
+                        <table className="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>编号</th>
+                                <th>姓名</th>
+                                <th>年龄</th>
+                            </tr>
+                            </thead>
+                            <UserList data={this.state.data}/>
+                        </table>
+                        <button onClick={this.handleClick}>换一批</button>
+                    </div>
+            )
+        }
+    });
+
+
+    var UserList = React.createClass({
+        render: function () {
+            return (
+                    <tbody>
+                    {this.props.data.map(function (user, index) {
+                        return <UserItem data={user} key={user.num} index={index}/>
+                    })}
+                    </tbody>
+            )
+        }
+    });
+
+    var UserItem = React.createClass({
+        render: function () {
+            index = this.props.index;
+            var user = this.props.data;
+
+            return (
+                    <tr>
+                        <td>{index + 1}</td>
+                        <td>{user.num}</td>
+                        <td>{user.name}</td>
+                        <td>{user.age}</td>
+                    </tr>
+            )
+        }
+    });
+    React.render(<App />, document.getElementById('example'));
+</script>
+</body>
+
+</html>
